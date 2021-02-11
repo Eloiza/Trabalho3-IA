@@ -3,16 +3,17 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 from sklearn.neural_network import MLPClassifier
-
+from sklearn.metrics import F1_Score, confusion_matrix
 def main():
 	dataset = pd.read_csv('datasets/imdb.csv')
-	dataset.head()
+	# print(dataset.head())
 	dataset = dataset[:1000]
 
 	count = CountVectorizer(stop_words='english')
 	X = count.fit_transform(dataset['review'])
 
 	print("X.shape: ", X.shape)
+	print(X)
 
 	tfidf = TfidfTransformer()
 	X = tfidf.fit_transform(X)
@@ -26,6 +27,7 @@ def main():
 
 	model = MLPClassifier(max_iter=300)
 	model.fit(X_train, y_train)
+
 	print("Acurácia MLP", model.score(X_test, y_test))
 
 if __name__ == '__main__':

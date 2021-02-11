@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 #recebe um array de textos
 #taxa de frequência. exemplo, se passar 0.8 vai retornar palavras que tem uma 
 #taxa de frequência de 80%
@@ -5,11 +7,13 @@
 def main(textos=[], taxa=0.6):
 	qt_textos = len(textos)
 	freq_necessaria = qt_textos*taxa
-	print(f"Frequencia necessária: {freq_necessaria}")
+	# print("Frequencia necessária: {freq_necessaria}")
+	print(freq_necessaria)
 	vocab = {}
 	#interando sobre os textos
 	for text in textos:
 		_aux = text.lower().split()
+
 		for palavra in _aux:
 			if not palavra in vocab:
 				vocab[palavra]=1
