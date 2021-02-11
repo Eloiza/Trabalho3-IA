@@ -3,17 +3,15 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 from sklearn.neural_network import MLPClassifier
-from sklearn.metrics import F1_Score, confusion_matrix
+from sklearn.metrics import f1_score, accuracy_score, confusion_matrix
 def main():
 	dataset = pd.read_csv('datasets/imdb.csv')
-	# print(dataset.head())
-	dataset = dataset[:1000]
+	dataset = dataset[:100]
 
 	count = CountVectorizer(stop_words='english')
 	X = count.fit_transform(dataset['review'])
 
 	print("X.shape: ", X.shape)
-	print(X)
 
 	tfidf = TfidfTransformer()
 	X = tfidf.fit_transform(X)
@@ -28,7 +26,21 @@ def main():
 	model = MLPClassifier(max_iter=300)
 	model.fit(X_train, y_train)
 
-	print("Acurácia MLP", model.score(X_test, y_test))
+	y_pred = model.predict(X_test)
+
+	y_test = list(y_test)
+
+	loss_values = model.loss_curve_
+	acc = accuracy_score(y_test, y_pred)
+	f1Score = f1_score(y_test, y_pred, pos_label='negative')
+	cm = confusion_matrix(y_test, y_pred)
+
+
+	print("valores de loss", loss_values)
+	print("\nAcurácia MLP", acc)
+	print("F1 Score", f1Score)
+	print("Matriz de Confusão")
+	print(cm)
 
 if __name__ == '__main__':
 	main()

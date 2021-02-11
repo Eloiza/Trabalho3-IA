@@ -36,7 +36,21 @@ def main():
 	mlp = MLPClassifier(max_iter=300)
 	mlp.fit(X_train_v, y_train)
 
-	print("Acurácia MLP", mlp.score(X_test_v, y_test))
+	y_pred = model.predict(X_test)
+
+	y_test = list(y_test)
+
+	loss_values = model.loss_curve_
+	acc = accuracy_score(y_test, y_pred)
+	f1Score = f1_score(y_test, y_pred, pos_label='negative')
+	cm = confusion_matrix(y_test, y_pred)
+
+
+	print("valores de loss", loss_values)
+	print("\nAcurácia MLP", acc)
+	print("F1 Score", f1Score)
+	print("Matriz de Confusão")
+	print(cm)
 
 if __name__ == '__main__':
 	main()
