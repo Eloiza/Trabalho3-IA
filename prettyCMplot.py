@@ -65,7 +65,8 @@ def plot_confusion_matrix(cm,
         if normalize:
             plt.text(j, i, "{:0.4f}".format(cm[i, j]),
                      horizontalalignment="center",
-                     color="white" if cm[i, j] > thresh else "black")
+                     color="white" if cm[i, j] > thresh else "black",
+                     fontsize=15)
         else:
             plt.text(j, i, "{:,}".format(cm[i, j]),
                      horizontalalignment="center",
@@ -78,5 +79,5 @@ def plot_confusion_matrix(cm,
     plt.ylabel('True label')
     plt.xlabel('Predicted label\naccuracy={:0.4f}; misclass={:0.4f}'.format(accuracy, misclass))
     return plt
-    
+
     # plt.show()

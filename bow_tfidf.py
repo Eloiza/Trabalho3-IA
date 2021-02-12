@@ -15,7 +15,7 @@ def main():
 	dataset_path = 'datasets/imdb.csv'
 	print("Reading dataset file at ", dataset_path)
 	dataset = pd.read_csv(dataset_path)
-	dataset = dataset[:100]
+	# dataset = dataset[:100]
 
 	X = dataset['review']
 
@@ -63,7 +63,7 @@ def main():
 	save_name = 'Results/bow_tfidf_' + str(int(frequency*100)) + '_loss' 
 	plt.savefig(save_name)
 
-	new_plt = plot_confusion_matrix(cm = cm, target_names = ['negative', 'positive'], title='MLP Confusion Matrix', cmap=None, normalize=False)
+	new_plt = plot_confusion_matrix(cm = cm, target_names = ['negative', 'positive'], title='MLP Confusion Matrix', cmap=None, normalize=True)
 	save_name = 'Results/bow_tfidf_' + str(int(frequency*100)) + '_confusion_matrix'
 	new_plt.savefig(save_name)
 
