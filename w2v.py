@@ -12,14 +12,19 @@ from sklearn.neural_network import MLPClassifier
 from sklearn.metrics import accuracy_score, confusion_matrix, f1_score
 
 from removeWords import VocabularyFilter
+from prettyCMplot import plot_confusion_matrix
 
 def main():
+	dataset_path = 'datasets/imdb.csv'
+	print("Reading dataset file at ", dataset_path)
 	dataset = pd.read_csv('datasets/imdb.csv')
 	# dataset = dataset[:100]
 		
-	#remove words that appear >= 0.6
 	X = dataset['review']
-	X = VocabularyFilter().removeWords(X, 0.1)
+	#remove words that appear >= 0.6
+	frequency = 0.80
+	print("Removing words that appear with %.2f frequency" %(frequency*100))
+	X = VocabularyFilter().removeWords(X, frequency)
 
 	X = [remove_stopwords(sent) for sent in X]
 	X = [simple_preprocess(sent, deacc=True) for sent in X]
@@ -41,9 +46,15 @@ def main():
 	    sent_vector = np.mean([model.wv[word] for word in sent if word in model.wv], axis=0)
 	    X_test_v.append(sent_vector)
 
+	print("Data ready for training...")
+	print("Shape train set: ", X_train_v.shape)
+	print("Shape test set : ", X_test_v.shape)
+
+	print("Trainig MLP Classifier")
 	mlp = MLPClassifier(max_iter=300)
 	mlp.fit(X_train_v, y_train)
 
+	print("Trainig done... Evaluating the model")
 	y_pred = mlp.predict(X_test_v)
 
 	y_test = list(y_test)
@@ -59,6 +70,16 @@ def main():
 	print("Matriz de Confusão:")
 	print(cm)
 
+	plt.ylabel('loss value')
+	plt.xlabel('epochs')
+	plt.title('MLP Trainig Loss Value')
+	plt.grid(True)
+	plt.plot(loss_values)
+	save_name = 'Results/w2v_' + str(int(frequency*100)) + '_loss' 
+	plt.savefig(save_name)
+
+	new_plt = plot_confusion_matrix(cm = cm, target_names = ['negative', 'positive'], title='MLP Confusion Matrix', cmap=None, normalize=True)
+	save_name = 'Results/w2v_' + str(int(frequency*100)) + '_confusion_matrix'
 
 if __name__ == '__main__':
 	main()
