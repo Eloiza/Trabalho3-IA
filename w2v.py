@@ -11,12 +11,17 @@ from sklearn.model_selection import train_test_split
 from sklearn.neural_network import MLPClassifier
 from sklearn.metrics import accuracy_score, confusion_matrix, f1_score
 
+from removeWords import VocabularyFilter
+
 def main():
 	dataset = pd.read_csv('datasets/imdb.csv')
-	print(dataset.head())
 	dataset = dataset[:100]
+		
+	#remove words that appear >= 0.6
+	X = dataset['review']
+	X = VocabularyFilter().removeWords(X, 0.1)
 
-	X = [remove_stopwords(sent) for sent in dataset['review']]
+	X = [remove_stopwords(sent) for sent in X]
 	X = [simple_preprocess(sent, deacc=True) for sent in X]
 
 	print("len(X)", len(X))
@@ -49,11 +54,11 @@ def main():
 	cm = confusion_matrix(y_test, y_pred)
 
 
-	print("valores de loss", loss_values)
-	print("\nAcurácia MLP", acc)
-	print("F1 Score", f1Score)
-	print("Matriz de Confusão")
+	print("\nAcurácia MLP: %.2f" %(acc*100))
+	print("F1 Score    : %.2f" %(f1Score*100))
+	print("Matriz de Confusão:")
 	print(cm)
+
 
 if __name__ == '__main__':
 	main()

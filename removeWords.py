@@ -51,12 +51,12 @@ class VocabularyFilter():
 			string = string + ' ' + word
 
 		return string
-		
+
 	#Removes all words from a list of texts that show up in a certain percetage
 	#The percetage parameter can be a single percetage or a list of percetages
 	def removeWords(self, texts, percentage):
 		words_to_remove = self._select_words(texts, percentage)
-		print("Palavras a serem removidas", words_to_remove)
+		print("Total de palavras a serem removidas:", len(words_to_remove))
 
 		for i in range(len(texts)):
 			texts[i] = self._remove_words(texts[i], words_to_remove)

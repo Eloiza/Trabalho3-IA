@@ -7,25 +7,20 @@ from sklearn.metrics import f1_score, accuracy_score, confusion_matrix
 from removeWords import VocabularyFilter
 
 def main():
+	#reads the dataset
 	dataset = pd.read_csv('datasets/imdb.csv')
 	dataset = dataset[:100]
 
+	X = dataset['review']
 
-	X = list(dataset['review'])
-	
-	#removes words that appear >= 60% the texts
+	#removes words that appear >= 60% in the texts
 	X = VocabularyFilter().removeWords(X, 0.6)
-	print(X)
-	
+
 	count = CountVectorizer(stop_words='english')
 	X = count.fit_transform(X)
 
-	print("X.shape: ", X.shape)
-
 	tfidf = TfidfTransformer()
 	X = tfidf.fit_transform(X)
-
-	print("X.shape: ", X.shape)
 
 	X_train, X_test, y_train, y_test = train_test_split(X, dataset['sentiment'], test_size=0.33)
 
@@ -44,9 +39,9 @@ def main():
 	f1Score = f1_score(y_test, y_pred, pos_label='negative')
 	cm = confusion_matrix(y_test, y_pred)
 
-	print("\nAcurácia MLP", acc)
-	print("F1 Score", f1Score)
-	print("Matriz de Confusão")
+	print("\nAcurácia MLP: %.2f" %(acc*100))
+	print("F1 Score    : %.2f" %(f1Score*100))
+	print("Matriz de Confusão:")
 	print(cm)
 
 if __name__ == '__main__':
