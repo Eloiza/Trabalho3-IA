@@ -4,13 +4,21 @@ from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 from sklearn.neural_network import MLPClassifier
 from sklearn.metrics import f1_score, accuracy_score, confusion_matrix
+from removeWords import VocabularyFilter
 
 def main():
 	dataset = pd.read_csv('datasets/imdb.csv')
 	dataset = dataset[:100]
 
+
+	X = list(dataset['review'])
+	
+	#removes words that appear >= 60% the texts
+	X = VocabularyFilter().removeWords(X, 0.6)
+	print(X)
+	
 	count = CountVectorizer(stop_words='english')
-	X = count.fit_transform(dataset['review'])
+	X = count.fit_transform(X)
 
 	print("X.shape: ", X.shape)
 

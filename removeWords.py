@@ -45,6 +45,13 @@ class VocabularyFilter():
 
 		return text
 
+	def _list_to_string(self, text):
+		string = text.pop(0)	#initiates the string with the first word
+		for word in text:
+			string = string + ' ' + word
+
+		return string
+		
 	#Removes all words from a list of texts that show up in a certain percetage
 	#The percetage parameter can be a single percetage or a list of percetages
 	def removeWords(self, texts, percentage):
@@ -53,7 +60,7 @@ class VocabularyFilter():
 
 		for i in range(len(texts)):
 			texts[i] = self._remove_words(texts[i], words_to_remove)
-
+			texts[i] = self._list_to_string(texts[i])
 		return texts
 
 if __name__ == '__main__':
