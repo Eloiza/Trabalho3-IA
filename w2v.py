@@ -15,7 +15,7 @@ from removeWords import VocabularyFilter
 
 def main():
 	dataset = pd.read_csv('datasets/imdb.csv')
-	dataset = dataset[:100]
+	# dataset = dataset[:100]
 		
 	#remove words that appear >= 0.6
 	X = dataset['review']
