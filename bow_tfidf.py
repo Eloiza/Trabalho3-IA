@@ -4,6 +4,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 from sklearn.neural_network import MLPClassifier
 from sklearn.metrics import f1_score, accuracy_score, confusion_matrix
+
 def main():
 	dataset = pd.read_csv('datasets/imdb.csv')
 	dataset = dataset[:100]
@@ -35,8 +36,6 @@ def main():
 	f1Score = f1_score(y_test, y_pred, pos_label='negative')
 	cm = confusion_matrix(y_test, y_pred)
 
-
-	print("valores de loss", loss_values)
 	print("\nAcurácia MLP", acc)
 	print("F1 Score", f1Score)
 	print("Matriz de Confusão")

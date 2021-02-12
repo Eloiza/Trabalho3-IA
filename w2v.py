@@ -1,17 +1,20 @@
 # -*- coding: utf-8 -*-
 import pandas as pd
-from gensim.models import Word2Vec
 import numpy as np
 import nltk
+
 from gensim.parsing.preprocessing import remove_stopwords
 from gensim.utils import simple_preprocess
+from gensim.models import Word2Vec
+
 from sklearn.model_selection import train_test_split
 from sklearn.neural_network import MLPClassifier
+from sklearn.metrics import accuracy_score, confusion_matrix, f1_score
 
 def main():
 	dataset = pd.read_csv('datasets/imdb.csv')
 	print(dataset.head())
-	dataset = dataset[:1000]
+	dataset = dataset[:100]
 
 	X = [remove_stopwords(sent) for sent in dataset['review']]
 	X = [simple_preprocess(sent, deacc=True) for sent in X]
@@ -36,11 +39,11 @@ def main():
 	mlp = MLPClassifier(max_iter=300)
 	mlp.fit(X_train_v, y_train)
 
-	y_pred = model.predict(X_test)
+	y_pred = mlp.predict(X_test_v)
 
 	y_test = list(y_test)
 
-	loss_values = model.loss_curve_
+	loss_values = mlp.loss_curve_
 	acc = accuracy_score(y_test, y_pred)
 	f1Score = f1_score(y_test, y_pred, pos_label='negative')
 	cm = confusion_matrix(y_test, y_pred)
