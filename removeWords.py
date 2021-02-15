@@ -64,6 +64,7 @@ class VocabularyFilter():
 		return texts
 
 if __name__ == '__main__':
+	#Code demo
 	textos = [
 		'A cada de maria é branca',
 		'Maria tem grande sabedoria',

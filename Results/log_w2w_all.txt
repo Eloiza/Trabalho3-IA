@@ -1,0 +1,13 @@
+Reading dataset file at  datasets/imdb.csv
+Data ready for training...
+Shape train set:  (33500, 300)
+Shape test set :  (16500, 300)
+Trainig MLP Classifier
+Trainig done... Evaluating the model
+
+Acurácia MLP: 87.39
+F1 Score    : 87.35
+Loss 	   : 0.0021
+Matriz de Confusão:
+[[7187 1080]
+ [1001 7232]]

@@ -1,0 +1,15 @@
+Reading dataset file at  datasets/imdb.csv
+Removing words that appear with 70.00 frequency
+Total de palavras a serem removidas: 37
+Data ready for training...
+Shape train set:  (33500, 101583)
+Shape test set :  (16500, 101583)
+Training MLP Classifier
+Training done...Evaluating the model
+
+Acurácia MLP: 87.95
+F1 Score    : 87.73
+Loss 	   : 0.0031
+Matriz de Confusão:
+[[7107 1061]
+ [ 927 7405]]

@@ -19,10 +19,10 @@ def main():
 
 	X = dataset['review']
 
-	frequency = 0.8
-	print("Removing words that appear with %.2f frequency" %(frequency*100))
-	#removes words that appear >= 60% in the texts
-	X = VocabularyFilter().removeWords(X, frequency)
+	# frequency = 0.8
+	# print("Removing words that appear with %.2f frequency" %(frequency*100))
+	# # removes words that appear >= 60% in the texts
+	# X = VocabularyFilter().removeWords(X, frequency)
 
 	count = CountVectorizer(stop_words='english')
 	X = count.fit_transform(X)
@@ -52,20 +52,21 @@ def main():
 
 	print("\nAcurácia MLP: %.2f" %(acc*100))
 	print("F1 Score    : %.2f" %(f1Score*100))
+	print("Loss 	   : %.4f" %(loss_values.pop()))
 	print("Matriz de Confusão:")
 	print(cm)
 
-	plt.ylabel('loss value')
-	plt.xlabel('epochs')
-	plt.title('MLP Trainig Loss Value')
-	plt.grid(True)
-	plt.plot(loss_values)
-	save_name = 'Results/bow_tfidf_' + str(int(frequency*100)) + '_loss' 
-	plt.savefig(save_name)
+	# plt.ylabel('loss value')
+	# plt.xlabel('epochs')
+	# plt.title('MLP Trainig Loss Value')
+	# plt.grid(True)
+	# plt.plot(loss_values)
+	# save_name = 'Results/bow_tfidf_' + str(int(frequency*100)) + '_loss' 
+	# plt.savefig(save_name)
 
-	new_plt = plot_confusion_matrix(cm = cm, target_names = ['negative', 'positive'], title='MLP Confusion Matrix', cmap=None, normalize=True)
-	save_name = 'Results/bow_tfidf_' + str(int(frequency*100)) + '_confusion_matrix'
-	new_plt.savefig(save_name)
+	# new_plt = plot_confusion_matrix(cm = cm, target_names = ['negative', 'positive'], title='MLP Confusion Matrix', cmap=None, normalize=True)
+	# save_name = 'Results/bow_tfidf_' + str(int(frequency*100)) + '_confusion_matrix'
+	# new_plt.savefig(save_name)
 
 if __name__ == '__main__':
 	main()
