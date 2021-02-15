@@ -56,7 +56,7 @@ class VocabularyFilter():
 	#The percetage parameter can be a single percetage or a list of percetages
 	def removeWords(self, texts, percentage):
 		words_to_remove = self._select_words(texts, percentage)
-		print("Total de palavras a serem removidas:", len(words_to_remove))
+		print("Total words to be removed:", len(words_to_remove))
 
 		for i in range(len(texts)):
 			texts[i] = self._remove_words(texts[i], words_to_remove)

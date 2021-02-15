@@ -8,21 +8,20 @@ from sklearn.neural_network import MLPClassifier
 from sklearn.metrics import f1_score, accuracy_score, confusion_matrix
 
 from removeWords import VocabularyFilter
-from prettyCMplot import plot_confusion_matrix
 
 def main():
 	#reads the dataset
-	dataset_path = 'datasets/imdb.csv'
+	dataset_path = 'Datasets/imdb.csv'
 	print("Reading dataset file at ", dataset_path)
 	dataset = pd.read_csv(dataset_path)
 	# dataset = dataset[:100]
 
 	X = dataset['review']
 
-	# frequency = 0.8
-	# print("Removing words that appear with %.2f frequency" %(frequency*100))
-	# # removes words that appear >= 60% in the texts
-	# X = VocabularyFilter().removeWords(X, frequency)
+	frequency = 0.8
+	print("Removing words that appear with %.2f frequency" %(frequency*100))
+	# removes words that appear >= 60% in the texts
+	X = VocabularyFilter().removeWords(X, frequency)
 
 	count = CountVectorizer(stop_words='english')
 	X = count.fit_transform(X)
@@ -56,17 +55,6 @@ def main():
 	print("Matriz de Confusão:")
 	print(cm)
 
-	# plt.ylabel('loss value')
-	# plt.xlabel('epochs')
-	# plt.title('MLP Trainig Loss Value')
-	# plt.grid(True)
-	# plt.plot(loss_values)
-	# save_name = 'Results/bow_tfidf_' + str(int(frequency*100)) + '_loss' 
-	# plt.savefig(save_name)
-
-	# new_plt = plot_confusion_matrix(cm = cm, target_names = ['negative', 'positive'], title='MLP Confusion Matrix', cmap=None, normalize=True)
-	# save_name = 'Results/bow_tfidf_' + str(int(frequency*100)) + '_confusion_matrix'
-	# new_plt.savefig(save_name)
 
 if __name__ == '__main__':
 	main()
